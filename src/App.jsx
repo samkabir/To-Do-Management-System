@@ -10,8 +10,10 @@ function App() {
       <SnackbarProvider>
         <BrowserRouter>
           <Navbar />
-          <div className="p-4">
-            <AllRoutes />
+          <div className="grid grid-cols-12 gap-0">
+            <div className="col-start-2 col-end-12">
+              <AllRoutes />
+            </div>
           </div>
         </BrowserRouter>
       </SnackbarProvider>
