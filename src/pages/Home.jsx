@@ -149,8 +149,8 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5">
 
                 {/* New */}
-                <DropZone 
-                    status="new" 
+                <DropZone
+                    status="new"
                     onDrop={handleTaskDrop}
                     className="bg-blue-100 px-4 rounded shadow-black shadow-lg min-h-[88vh] max-h-[85vh] overflow-y-auto"
                 >
@@ -190,8 +190,8 @@ export default function Home() {
                 </DropZone>
 
                 {/* Ongoing */}
-                <DropZone 
-                    status="ongoing" 
+                <DropZone
+                    status="ongoing"
                     onDrop={handleTaskDrop}
                     className="bg-orange-100 px-4 rounded shadow-black shadow-lg max-h-[90vh] overflow-y-auto"
                 >
@@ -223,8 +223,8 @@ export default function Home() {
                 </DropZone>
 
                 {/* Done */}
-                <DropZone 
-                    status="done" 
+                <DropZone
+                    status="done"
                     onDrop={handleTaskDrop}
                     className="bg-green-100 px-4 rounded shadow-black shadow-lg max-h-[90vh] overflow-y-auto"
                 >

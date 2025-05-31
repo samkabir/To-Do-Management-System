@@ -17,7 +17,7 @@ const DropZone = ({ children, status, onDrop, className }) => {
 
     const getDropZoneStyles = () => {
         let styles = className || '';
-        
+
         if (isOver && canDrop) {
             if (status === 'new') {
                 styles += ' ring-4 ring-blue-300 bg-blue-50';
@@ -29,7 +29,7 @@ const DropZone = ({ children, status, onDrop, className }) => {
         } else if (canDrop) {
             styles += ' ring-2 ring-gray-300 ring-dashed';
         }
-        
+
         return styles;
     };
 
