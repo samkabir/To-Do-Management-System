@@ -1,12 +1,68 @@
-# React + Vite
+# To-Do Task Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A frontend web application that provides an interactive interface to manage you tasks. Built with React V18.
 
-Currently, two official plugins are available:
+# [Live Link](https://to-do-management-system.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **Create Task**: Allows user to create a task and set its due date.
+- **Delete Task**: Allows user to create a task and set its due date.
+- **Edit Task**: Allows user to edit any task.
+- **Move Task**: Allows user to right-click and move to next ore previous column.
+- **DRAG and DROP Task**: Allows user to drag and drop tasks to any column.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+### Frontend
+- **React** 18.2.0 - Modern React with hooks and functional components
+- **React Router** 6.14.2 - Client-side routing and navigation
+- **Tailwind CSS** 3.3.3 - Utility-first CSS framework
+- **Material-UI** 7.1.0 - React component library
+- **Vite** 4.5.14 - Fast build tool and development server
+- **React DnD** 16.0.1 - Drag and Drop feature
+- **Date fns** 4.1.0 - Toolset for manipulating JavaScript dates
+
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm, yarn, or fnm package manager
+
+### Steps
+
+1. **Clone both repositories:**
+   ```bash
+   # Clone the frontend repository
+   git clone git@github.com:samkabir/To-Do-Management-System.git
+   
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   cd to-do-management-system
+   npm install
+   ```
+
+3. **Start the frontend development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Access the application: Open your browser and navigate to http://localhost:5173**
+
+## 🧪 Testing & QA
+
+The application has been thoroughly tested using multiple approaches:
+
+- **End-to-End User Testing**: Comprehensive testing from user perspective
+- **Functionality Testing**: Each feature tested individually for proper operation
+- **White Box Testing**: Internal logic and code structure validation
+
+## 🤝 Support
+
+If you encounter any difficulties during installation or setup, please reach out:
+
+**Email**: samkabir26@gmail.com
+  
