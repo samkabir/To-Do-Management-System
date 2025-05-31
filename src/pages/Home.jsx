@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import TaskCard from "../components/UI/Cards/TaskCard";
 import { useSnackbar } from "../contexts/SnackbarContext";
 import { GetIcon } from "../icons";
 import REButton from "../components/UI/REButton/REButton";
-import REModal from "../components/UI/Modals/REModal/REModal";
 import CreateTaskModal from "../components/UI/Modals/CreateTaskModal/CreateTaskModal";
+import DropZone from "../components/UI/Dropzone/Dropzone";
 
 export default function Home() {
     const [alltasks, setAllTasks] = useState([
@@ -61,7 +63,7 @@ export default function Home() {
     const [newTasks, setNewTasks] = useState([]);
     const [ongoingTasks, setOngoingTasks] = useState([]);
     const [doneTasks, setDoneTasks] = useState([]);
-     const hasCheckedOverdue = useRef(false);
+    const hasCheckedOverdue = useRef(false);
 
     const snackbar = useSnackbar();
 
@@ -110,7 +112,13 @@ export default function Home() {
         snackbar.showSnackbar(statusMessages[newStatus] || 'Task status updated', "success");
     }
 
-    
+    // Drag and Drop handler
+    const handleTaskDrop = (taskId, newStatus) => {
+        const task = alltasks.find(t => t.id === taskId);
+        if (task && task.status !== newStatus) {
+            handleStatusChange(taskId, newStatus);
+        }
+    };
 
     useEffect(() => {
         const newTasks = alltasks.filter(task => task.status === "new").sort().reverse();
@@ -121,8 +129,6 @@ export default function Home() {
         setOngoingTasks(ongoingTasks);
         setDoneTasks(doneTasks);
     }, [alltasks]);
-
-
 
     useEffect(() => {
         if (alltasks.length > 0 && !hasCheckedOverdue.current) {
@@ -135,17 +141,19 @@ export default function Home() {
         }
     }, [alltasks, snackbar]);
 
-
-
     return (
-        <>
+        <DndProvider backend={HTML5Backend}>
             <div className="flex items-center justify-center my-5">
                 <span className="font-bold text-xl">To-Do Task Management System</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5">
 
                 {/* New */}
-                <div className="bg-blue-100 px-4 rounded shadow-black shadow-lg min-h-[88vh] max-h-[85vh] overflow-y-auto">
+                <DropZone
+                    status="new"
+                    onDrop={handleTaskDrop}
+                    className="bg-blue-100 px-4 rounded shadow-black shadow-lg min-h-[88vh] max-h-[85vh] overflow-y-auto"
+                >
                     {/* Top Part */}
                     <div className="flex items-center justify-between border-b-2 border-gray-400 mb-4 sticky top-0 bg-blue-100 z-10">
                         <div className="">
@@ -168,7 +176,7 @@ export default function Home() {
                         {newTasks.length > 0 ? (
                             newTasks.map((task, index) => (
                                 <TaskCard
-                                    key={index}
+                                    key={task.id}
                                     task={task}
                                     clickOnDelete={handleTaskDelete}
                                     onStatusChange={handleStatusChange}
@@ -179,10 +187,14 @@ export default function Home() {
                             <p className="text-gray-500">No new tasks available.</p>
                         )}
                     </div>
-                </div>
+                </DropZone>
 
                 {/* Ongoing */}
-                <div className="bg-orange-100 px-4 rounded shadow-black shadow-lg max-h-[90vh] overflow-y-auto">
+                <DropZone
+                    status="ongoing"
+                    onDrop={handleTaskDrop}
+                    className="bg-orange-100 px-4 rounded shadow-black shadow-lg max-h-[90vh] overflow-y-auto"
+                >
                     {/* Top Part */}
                     <div className="flex items-center justify-between border-b-2 border-gray-400 mb-4 sticky top-0 bg-orange-100 z-10">
                         <div className="">
@@ -197,7 +209,7 @@ export default function Home() {
                         {ongoingTasks.length > 0 ? (
                             ongoingTasks.map((task, index) => (
                                 <TaskCard
-                                    key={index}
+                                    key={task.id}
                                     task={task}
                                     clickOnDelete={handleTaskDelete}
                                     onStatusChange={handleStatusChange}
@@ -208,10 +220,14 @@ export default function Home() {
                             <p className="text-gray-500">No ongoing tasks available.</p>
                         )}
                     </div>
-                </div>
+                </DropZone>
 
                 {/* Done */}
-                <div className="bg-green-100 px-4 rounded shadow-black shadow-lg max-h-[90vh] overflow-y-auto">
+                <DropZone
+                    status="done"
+                    onDrop={handleTaskDrop}
+                    className="bg-green-100 px-4 rounded shadow-black shadow-lg max-h-[90vh] overflow-y-auto"
+                >
                     {/* Top Part */}
                     <div className="flex items-center justify-between border-b-2 border-gray-400 mb-4 sticky top-0 bg-green-100 z-10">
                         <div className="">
@@ -226,7 +242,7 @@ export default function Home() {
                         {doneTasks.length > 0 ? (
                             doneTasks.map((task, index) => (
                                 <TaskCard
-                                    key={index}
+                                    key={task.id}
                                     task={task}
                                     clickOnDelete={handleTaskDelete}
                                     onStatusChange={handleStatusChange}
@@ -237,8 +253,7 @@ export default function Home() {
                             <p className="text-gray-500">No completed tasks available.</p>
                         )}
                     </div>
-                </div>
-
+                </DropZone>
 
                 {/* Create Task Modal */}
                 <CreateTaskModal
@@ -247,6 +262,6 @@ export default function Home() {
                     onTaskCreate={handleTaskCreate}
                 />
             </div>
-        </>
+        </DndProvider>
     );
 }

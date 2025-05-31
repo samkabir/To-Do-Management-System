@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useDrag } from 'react-dnd';
 import { GetIcon } from '../../../icons'
 import formatDate from '../../../utils/DateConverter/DateConverter'
 import REModal from '../Modals/REModal/REModal'
@@ -11,6 +12,14 @@ const TaskCard = ({ task, clickOnDelete, onStatusChange, onTaskUpdate }) => {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const contextMenuRef = useRef(null);
 
+    const [{ isDragging }, drag] = useDrag({
+        type: 'TASK',
+        item: { id: task.id, status: task.status },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    });
+
     const handleRightClick = (e) => {
         e.preventDefault();
         setContextMenuPosition({ x: e.clientX, y: e.clientY });
@@ -19,7 +28,9 @@ const TaskCard = ({ task, clickOnDelete, onStatusChange, onTaskUpdate }) => {
 
     const handleLeftClick = (e) => {
         e.preventDefault();
-        setModalOpen(true);
+        if (!isDragging) {
+            setModalOpen(true);
+        }
     };
 
     const handleStatusChange = (newStatus) => {
@@ -33,11 +44,7 @@ const TaskCard = ({ task, clickOnDelete, onStatusChange, onTaskUpdate }) => {
         e.preventDefault();
         e.stopPropagation();
         setDeleteModalOpen(true);
-        // clickOnDelete(task);
-
     };
-
-
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -80,11 +87,24 @@ const TaskCard = ({ task, clickOnDelete, onStatusChange, onTaskUpdate }) => {
     return (
         <div>
             <div
-                className={`${(new Date() > new Date(task.dueDate)) && task.status !== "done"  ? 'bg-red-200' : 'bg-white'} shadow-md rounded-lg p-4 mb-4 cursor-pointer select-none`}
+                ref={drag}
+                className={`${(new Date() > new Date(task.dueDate)) && task.status !== "done" ? 'bg-red-200' : 'bg-white'} 
+                    shadow-md rounded-lg p-4 mb-4 cursor-pointer select-none transition-all duration-200
+                    ${isDragging ? 'opacity-50 transform rotate-2 scale-105' : 'hover:shadow-lg'}
+                    ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
                 onContextMenu={handleRightClick}
                 onClick={handleLeftClick}
+                style={{
+                    opacity: isDragging ? 0.5 : 1,
+                }}
             >
-                {new Date() > new Date(task.dueDate) && (
+                {isDragging && (
+                    <div className="absolute inset-0 bg-blue-100 border-2 border-blue-300 border-dashed rounded-lg flex items-center justify-center">
+                        <p className="text-blue-600 font-semibold">Moving task...</p>
+                    </div>
+                )}
+                
+                {new Date() > new Date(task.dueDate) && task.status !== "done" && (
                     <div className='flex items-center justify-center'>
                         <div className='flex items-center gap-2 border-2 border-red-500 rounded-lg px-2 py-1'>
                             <p className="text-red-500 font-semibold text-sm">Overdue</p>
@@ -161,7 +181,6 @@ const TaskCard = ({ task, clickOnDelete, onStatusChange, onTaskUpdate }) => {
                 task={task}
                 setModalOpen={setDeleteModalOpen}
                 clickOnDelete={clickOnDelete}
-
             />
         </div>
     );

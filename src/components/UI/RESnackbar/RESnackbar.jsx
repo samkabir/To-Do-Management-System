@@ -58,10 +58,10 @@ const RESnackbar = ({ snackbarState, hideSnackbar }) => {
 
   const getStyles = () => {
     const baseStyles = "flex items-center gap-3 p-4 rounded-lg shadow-lg border min-w-80 max-w-md transition-all duration-300 ease-in-out transform";
-    const animationStyles = isVisible 
-      ? "translate-x-0 opacity-100" 
+    const animationStyles = isVisible
+      ? "translate-x-0 opacity-100"
       : "translate-x-full opacity-0";
-    
+
     switch (type) {
       case "success":
         return `${baseStyles} ${animationStyles} bg-green-50 border-green-200 text-green-800`;
@@ -83,11 +83,11 @@ const RESnackbar = ({ snackbarState, hideSnackbar }) => {
         <div className="flex-shrink-0">
           {getIcon()}
         </div>
-        
+
         <div className="flex-1 text-sm font-medium">
           {message}
         </div>
-        
+
         <button
           onClick={handleClose}
           className="flex-shrink-0 p-1 rounded-full hover:bg-black/10 transition-colors duration-200"

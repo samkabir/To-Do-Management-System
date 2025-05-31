@@ -42,7 +42,7 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
       ...prev,
       [field]: value
     }));
-    
+
     if (errors[field]) {
       setErrors(prev => ({
         ...prev,
@@ -81,7 +81,7 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
       ...task,
       title: editedTask.title.trim(),
       description: editedTask.description.trim(),
-      dueDate: editedTask.dueDate.format('M/D/YYYY, h:mm:ss A') 
+      dueDate: editedTask.dueDate.format('M/D/YYYY, h:mm:ss A')
     };
 
     if (onTaskUpdate) {
@@ -169,7 +169,7 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
                 <div className='flex gap-2 items-center'>
                   <GetIcon name="CalendarIcon" className='w-5 h-5 text-red-500' />
                   {edit ? (
-                    <div className="flex-1">
+                    <div className="flex-1 mt-2">
                       <DateTimePicker
                         label="Due Date & Time"
                         value={editedTask.dueDate}
