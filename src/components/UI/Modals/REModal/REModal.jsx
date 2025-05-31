@@ -20,8 +20,6 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
     dueDate: null
   });
   const [errors, setErrors] = useState({});
-
-  // Initialize edited task when task prop changes or modal opens
   useEffect(() => {
     if (task && modalOpen) {
       setEditedTask({
@@ -45,7 +43,6 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
       [field]: value
     }));
     
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({
         ...prev,
@@ -84,10 +81,9 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
       ...task,
       title: editedTask.title.trim(),
       description: editedTask.description.trim(),
-      dueDate: editedTask.dueDate.format('M/D/YYYY, h:mm:ss A') // Format to match your existing format
+      dueDate: editedTask.dueDate.format('M/D/YYYY, h:mm:ss A') 
     };
 
-    // Call the update function passed from parent
     if (onTaskUpdate) {
       onTaskUpdate(updatedTask);
     }
@@ -96,7 +92,6 @@ const REModal = ({ modalOpen, handleClose, task, setModalOpen, clickOnDelete, on
   };
 
   const handleCancel = () => {
-    // Reset to original values
     setEditedTask({
       title: task.title || '',
       description: task.description || '',

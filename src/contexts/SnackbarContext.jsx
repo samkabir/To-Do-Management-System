@@ -111,7 +111,6 @@ export const SnackbarProvider = ({ children }) => {
     <SnackbarContext.Provider value={contextValue}>
       {children}
       
-      {/* Snackbar Container */}
       {snackbars.length > 0 && (
         <div className="fixed bottom-4 right-4 z-50 flex flex-col-reverse max-h-screen overflow-hidden">
           {snackbars.map((snackbar, index) => (
