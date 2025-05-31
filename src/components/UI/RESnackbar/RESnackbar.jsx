@@ -13,7 +13,6 @@ const RESnackbar = ({ snackbarState, hideSnackbar }) => {
   useEffect(() => {
     if (open) {
       setShouldRender(true);
-      // Small delay to ensure the component is mounted before animation starts
       const showTimer = setTimeout(() => {
         setIsVisible(true);
       }, 10);
@@ -21,7 +20,6 @@ const RESnackbar = ({ snackbarState, hideSnackbar }) => {
       return () => clearTimeout(showTimer);
     } else {
       setIsVisible(false);
-      // Wait for exit animation to complete before unmounting
       const hideTimer = setTimeout(() => {
         setShouldRender(false);
       }, 300);

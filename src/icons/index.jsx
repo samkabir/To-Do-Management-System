@@ -28,12 +28,13 @@ const iconMap = {
     OverDueIcon
 };
 
-export function GetIcon({ name, className = '' }) {
+export function GetIcon({ name, className = '', onClick }) {
+
     const IconComponent = iconMap[name];
     if (!IconComponent) {
         console.warn(`Icon "${name}" not found.`);
         return null;
     }
 
-    return <IconComponent className={className} />;
+    return <IconComponent className={className} onClick={onClick} />;
 }
